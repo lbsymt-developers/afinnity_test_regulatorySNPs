@@ -17,3 +17,5 @@ snp_info1 <- LoadSNPData(snpids = c("rs5050", "rs616488", "rs11249433", "rs18279
                          genome.lib ="BSgenome.Hsapiens.UCSC.hg38",
                          snp.lib = "SNPlocs.Hsapiens.dbSNP155.GRCh38", half.window.size = 30, default.par = TRUE, mutation = FALSE)
 
+install.packages("../../../Downloads/SNPlocs.Hsapiens.dbSNP155.GRCh38_0.99.21.tar",
+                 repos = NULL, type = "source")

@@ -39,14 +39,15 @@ qval_rank <- qvalue(atsnp.result$pval_rank, pi0=0.1)$qvalues
 fdr <- p.adjust(atsnp.result$pval_snp)
 atsnp.result <- cbind(atsnp.result, qval_rank, fdr)
 
+# Para ver cada SNP por separado
 match.subseq_result <- MatchSubsequence(snp.tbl = atsnp.scores$snp.tbl,
                                         motif.scores = atsnp.result, motif.lib = encode_motif,
-                                        snpids = c("rs769446"),
+                                        snpids = c("rs12272618"),
                                         motifs = names(encode_motif), ncores = 1)
 match.subseq_result[c("snpid", "motif", "IUPAC", "ref_match_seq", "snp_match_seq")]
 match.seq <- dtMotifMatch(atsnp.scores$snp.tbl,
                           atsnp.scores$motif.scores,
-                          snpids="rs769446", motifs="ELF1_disc3",
+                          snpids="rs12272618", motifs="AFP_1",
                           motif.lib = encode_motif)
 match.seq <- match.seq[!duplicated(match.seq$snpid),]
 plotMotifMatch(match.seq,  motif.lib = encode_motif)
@@ -54,7 +55,7 @@ plotMotifMatch(match.seq,  motif.lib = encode_motif)
 
 match.seq_2 <- dtMotifMatch(atsnp.scores$snp.tbl,
                             atsnp.scores$motif.scores,
-                            snpids="rs405509", motifs="POU2F3_2",
+                            snpids="rs12272618", motifs="AHR_1",
                             motif.lib = encode_motif)
 match.seq <- match.seq[!duplicated(match.seq$snpid),]
 plotMotifMatch(match.seq_2,  motif.lib = encode_motif)

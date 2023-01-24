@@ -24,6 +24,7 @@ results <- motifbreakR::motifbreakR(snpList = snps.mb, filterp = TRUE,
                                T=0.25),
                        BPPARAM = BiocParallel::MulticoreParam(7))
 
+saveRDS(results, "results/motifs_all_AD_SNPs.rds")
 rs13032148 <- results[names(results) %in% "rs13032148"]
 rs13032148
 rs13032148 <- calculatePvalue(rs13032148)

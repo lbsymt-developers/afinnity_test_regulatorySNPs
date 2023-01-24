@@ -3,7 +3,10 @@ library(motifbreakR)
 
 library(BSgenome)
 available.SNPs()
-snps <- c("rs1049673", "rs13032148", "rs1060743")
+snps <- readr::read_csv("../Mapping_nonconding/data/SNPs_differentDataset_uniques.csv")
+# require(GenomicRanges)
+snps <- snps$RefSNP_id
+
 snps.mb <- motifbreakR::snps.from.rsid(rsid = snps,
                           dbSNP = SNPlocs.Hsapiens.dbSNP155.GRCh38::SNPlocs.Hsapiens.dbSNP155.GRCh38,
                           search.genome = BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38)
@@ -19,7 +22,7 @@ results <- motifbreakR::motifbreakR(snpList = snps.mb, filterp = TRUE,
                                C=0.25,
                                G=0.25,
                                T=0.25),
-                       BPPARAM = BiocParallel::SerialParam())
+                       BPPARAM = BiocParallel::MulticoreParam(7))
 
 rs13032148 <- results[names(results) %in% "rs13032148"]
 rs13032148

@@ -33,8 +33,8 @@ find_critical_SNPs <- function(results){
   df <- df[df$effect == "strong", ]
   snps <- unique(names(df))
 
-  future::plan("multisession")
-  aa <- purrr::map(snps, purrr::safely(function(x){
+  # future::plan("multisession")
+  aa <- purrr::map(snps[1:1000], purrr::safely(function(x){
     print(x)
     df_tmp <- df[names(df) %in% x,] %>%
       motifbreakR::calculatePvalue() %>%
@@ -42,7 +42,28 @@ find_critical_SNPs <- function(results){
       filter(Refpvalue <= 0.05)
   }), .progress = TRUE)
 
+  saveRDS(aa, "snps_1_1000.rds")
 
+  bb <- purrr::map(snps[1001:2000], purrr::safely(function(x){
+    print(x)
+    df_tmp <- df[names(df) %in% x,] %>%
+      motifbreakR::calculatePvalue() %>%
+      data.frame() %>%
+      filter(Refpvalue <= 0.05)
+  }), .progress = TRUE)
+
+  saveRDS(bb, "snps_1001_2000.rds")
+
+
+  cc <- purrr::map(snps[2001:3000], purrr::safely(function(x){
+    print(x)
+    df_tmp <- df[names(df) %in% x,] %>%
+      motifbreakR::calculatePvalue() %>%
+      data.frame() %>%
+      filter(Refpvalue <= 0.05)
+  }), .progress = TRUE)
+
+  saveRDS(cc, "snps_2001_3000.rds")
 
   df_snps <- data.frame()
   for(i in 1:length(snps)){

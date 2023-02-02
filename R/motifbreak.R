@@ -65,7 +65,7 @@ find_critical_SNPs <- function(results){
 
   saveRDS(cc, "snps_2001_3000.rds")
 
-  dd <- purrr::map(snps[3001:4000], purrr::safely(function(x){
+  dd <- purrr::map(snps[5001:length(snps)], purrr::safely(function(x){
     print(x)
     df_tmp <- df[names(df) %in% x,] %>%
       motifbreakR::calculatePvalue() %>%
@@ -73,7 +73,7 @@ find_critical_SNPs <- function(results){
       filter(Refpvalue <= 0.05)
   }), .progress = TRUE)
 
-  saveRDS(dd, "snps_3001_4000.rds")
+  saveRDS(dd, "snps_5001_6741.rds")
 
   df_snps <- data.frame()
   for(i in 1:length(snps)){

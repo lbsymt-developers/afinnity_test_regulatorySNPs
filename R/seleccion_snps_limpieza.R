@@ -27,6 +27,6 @@ snps <- rbind(snp1, snp2, snp3, snp4, snp5)
 saveRDS(snps, "all_snps_motifs_strong.rds")
 
 table(snps$geneSymbol)
-
+a <- unique(snps$SNP_id)
 
 
